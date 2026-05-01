@@ -26,6 +26,17 @@ export default defineSchema({
     tags: v.optional(v.array(v.string())),
   }).index("by_email", ["email"]),
 
+  blog_posts: defineTable({
+    slug: v.string(),
+    title: v.string(),
+    excerpt: v.string(),
+    content: v.string(), // HTML or markdown
+    author: v.string(),
+    publishedAt: v.number(),
+    tags: v.optional(v.array(v.string())),
+    featuredImage: v.optional(v.string()),
+  }).index("by_slug", ["slug"]),
+
   events: defineTable({
     type: v.literal("page_view", "signup", "product_view"),
     path: v.string(),
