@@ -1,5 +1,5 @@
-import { convexServer } from "./server";
+import { query } from "./server";
 
 export async function getProductBySlug(slug: string) {
-  return await convexServer.query("products:getBySlug", { slug });
+  return await query("products:getBySlug", { slug });
 }

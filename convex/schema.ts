@@ -47,7 +47,6 @@ export default defineSchema({
     timestamp: v.number(),
     url: v.string(),
     referrer: v.optional(v.string()),
-    userAgent: v.optional(v.string()),
   })
     .index("by_session", ["sessionId"])
     .index("by_event_type", ["eventType"])

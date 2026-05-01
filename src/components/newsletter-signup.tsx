@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +26,7 @@ export default function NewsletterSignup() {
     }
 
     // Simple email regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setMessage('Please enter a valid email address');
       setMessageType('error');
