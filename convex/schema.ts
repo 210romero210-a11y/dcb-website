@@ -126,6 +126,23 @@ export default defineSchema({
     .index("by_status", ["status"])
     .index("by_source", ["source"]),
 
+  // Learning events for self-improving system
+  learning_events: defineTable({
+    type: v.string(), // ci_failure, test_failure, pr_issue, auto_fix_attempt
+    file: v.string(),
+    error: v.string(),
+    fingerprint: v.string(), // normalized error for pattern matching
+    rootCause: v.optional(v.string()),
+    fixApplied: v.optional(v.string()),
+    ruleId: v.optional(v.string()), // which rule was applied
+    success: v.optional(v.boolean()), // whether the fix worked
+    timestamp: v.number(),
+  })
+    .index("by_type", ["type"])
+    .index("by_file", ["file"])
+    .index("by_fingerprint", ["fingerprint"])
+    .index("by_timestamp", ["timestamp"]),
+
   // Blog posts for content and SEO
   blog_posts: defineTable({
     slug: v.string(),

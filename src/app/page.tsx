@@ -14,19 +14,15 @@ export default function HomePage() {
           A comprehensive guide to recognizing, healing, and building resilience against manipulation.
         </p>
         <div className="flex justify-center space-x-4">
-          <Button
-            asChild
-            href="/products/understanding-overcoming-gaslighting-emotional-abuse"
-            variant="default"
-          >
-            Get the Course
+          <Button asChild variant="default">
+            <Link href="/products/understanding-overcoming-gaslighting-emotional-abuse">
+              Get the Course
+            </Link>
           </Button>
-          <Button
-            asChild
-            href="/resources"
-            variant="outline"
-          >
-            Free Resources
+          <Button asChild variant="outline">
+            <Link href="/resources">
+              Free Resources
+            </Link>
           </Button>
         </div>
       </section>

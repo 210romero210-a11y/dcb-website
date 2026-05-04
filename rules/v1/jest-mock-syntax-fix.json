@@ -1,0 +1,26 @@
+{
+  "id": "jest-mock-syntax-fix",
+  "description": "Fix malformed Jest mock factory closing parentheses",
+  "match": {
+    "errorContains": "TS1005: ')' expected",
+    "filePattern": "__tests__",
+    "errorPattern": "jest.mock.*\\([^}]*}\\);"
+  },
+  "fix": {
+    "type": "code_mod",
+    "description": "Correct Jest mock factory syntax by ensuring proper closing",
+    "template": "jest.mock('{{moduleName}}', () => ({\n  __esModule: true,\n  ...jest.requireActual('{{moduleName}}'),\n  notFound: jest.fn(),\n}));",
+    "variables": {
+      "moduleName": "next/navigation"
+    }
+  },
+  "validation": {
+    "testCommand": "pnpm test src/app/products/[slug]/__tests__/page.integration.test.tsx",
+    "mustPass": true
+  },
+  "metadata": {
+    "createdAt": "{{timestamp}}",
+    "version": "1.0.0",
+    "author": "self-improving-system"
+  }
+}
