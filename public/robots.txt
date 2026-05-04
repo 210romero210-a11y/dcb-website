@@ -1,0 +1,7 @@
+# robots.txt for DCB Website
+# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://dcb.com/sitemap.xml
