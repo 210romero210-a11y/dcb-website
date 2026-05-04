@@ -16,7 +16,10 @@ export async function query<T = any>(path: string, args: Record<string, any> = {
   }
 
   const result = await response.json();
-  return result;
+  if (result.status !== "success") {
+    throw new Error(`Convex query failed: ${result.status}`);
+  }
+  return result.value;
 }
 
 export async function mutation<T = any>(path: string, args: Record<string, any> = {}): Promise<T> {

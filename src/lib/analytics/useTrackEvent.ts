@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -8,19 +8,23 @@ import { v4 as uuidv4 } from "uuid";
  * For critical events (purchases, form submissions), use server actions instead
  */
 export function useTrackEvent() {
-  const [sessionId, setSessionId] = useState<string>(() => {
-    return localStorage.getItem("dcb_session_id") || uuidv4();
-  });
+  const [sessionId, setSessionId] = useState<string>("");
 
-  // Initialize session ID on first load (client-side only)
-  if (typeof window !== "undefined" && !localStorage.getItem("dcb_session_id")) {
-    localStorage.setItem("dcb_session_id", sessionId);
-  }
+  useEffect(() => {
+    const stored = localStorage.getItem("dcb_session_id");
+    if (stored) {
+      setSessionId(stored);
+    } else {
+      const newId = uuidv4();
+      localStorage.setItem("dcb_session_id", newId);
+      setSessionId(newId);
+    }
+  }, []);
 
   const trackEvent = useCallback(
     async (eventType: string, properties: Record<string, any> = {}) => {
-      // Skip if not in browser (SSR)
-      if (typeof window === "undefined") return;
+      // Skip if not in browser (SSR) or if sessionId is not yet set
+      if (typeof window === "undefined" || !sessionId) return;
 
       const event = {
         eventId: uuidv4(),
